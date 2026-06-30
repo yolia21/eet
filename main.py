@@ -899,7 +899,7 @@ def read_root():
     <script>
         // Terminal Application State
         const state = {
-            tickers: ["NVDA", "BTC-USD", "META", "ETH-USD"],
+            tickers: ["NVDA", "BTC-USD", "META", "ETH-USD", "AAPL", "TSLA", "KRX100.KS"],
             activeTickers: ["NVDA", "BTC-USD"],
             currency: "USD",
             normalizeScale: false,
