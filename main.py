@@ -713,12 +713,12 @@ def read_root():
         <!-- Header -->
         <header class="panel header-panel">
             <div class="header-title-section">
-                <h1>The Enterprise Equity Terminal</h1>
-                <p>Advanced BAIT Financial Analytics Dashboard • Served via FastAPI Backend</p>
+                <h1 data-i18n="headerTitle">The Enterprise Equity Terminal</h1>
+                <p data-i18n="headerSubtitle">Advanced BAIT Financial Analytics Dashboard • Served via FastAPI Backend</p>
             </div>
             <div class="terminal-status">
                 <div class="status-dot"></div>
-                <span>FASTAPI SECURE LOCALHOST</span>
+                <span data-i18n="statusLabel">FASTAPI SECURE LOCALHOST</span>
             </div>
         </header>
 
@@ -726,10 +726,10 @@ def read_root():
         <aside class="sidebar">
             
             <div class="panel">
-                <div class="section-title">📊 Asset Selector</div>
+                <div class="section-title" data-i18n="assetSelectorTitle">📊 Asset Selector</div>
                 
                 <div class="control-group">
-                    <label>Manage Active Assets</label>
+                    <label data-i18n="manageAssetsLabel">Manage Active Assets</label>
                     <div class="ticker-item-list" id="tickerCheckboxList">
                         <!-- Populated by JavaScript -->
                     </div>
@@ -737,17 +737,27 @@ def read_root():
 
                 <div class="control-group">
                     <div class="add-ticker-row">
-                        <input type="text" id="addTickerInput" placeholder="e.g. AMD, SOL-USD" style="text-transform: uppercase;">
+                        <input type="text" id="addTickerInput" placeholder="e.g. AMD, SOL-USD" style="text-transform: uppercase;" data-i18n="addTickerPlaceholder">
                         <button class="btn-add" id="btnAddTicker">+</button>
                     </div>
                 </div>
             </div>
 
             <div class="panel">
-                <div class="section-title">⚙️ Terminal Config</div>
+                <div class="section-title" data-i18n="terminalConfigTitle">⚙️ Terminal Config</div>
 
                 <div class="control-group">
-                    <label>Base Currency Normalization</label>
+                    <label data-i18n="languageLabel">Language</label>
+                    <select id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="ko">한국어</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label data-i18n="currencyLabel">Base Currency Normalization</label>
                     <select id="currencySelect">
                         <option value="USD">USD ($)</option>
                         <option value="EUR">EUR (€)</option>
@@ -757,12 +767,12 @@ def read_root():
                 </div>
 
                 <div class="control-group">
-                    <label>Historical Timeframe</label>
+                    <label data-i18n="timeframeLabel">Historical Timeframe</label>
                     <select id="timeframeSelect">
-                        <option value="1y">1 Year</option>
-                        <option value="2y">2 Years</option>
-                        <option value="5y">5 Years</option>
-                        <option value="max">Max</option>
+                        <option value="1y" data-i18n="opt1y">1 Year</option>
+                        <option value="2y" data-i18n="opt2y">2 Years</option>
+                        <option value="5y" data-i18n="opt5y">5 Years</option>
+                        <option value="max" data-i18n="optMax">Max</option>
                     </select>
                 </div>
 
@@ -770,7 +780,7 @@ def read_root():
                     <label class="checkbox-container">
                         <input type="checkbox" id="normalizeCheck">
                         <span class="checkbox-checkmark"></span>
-                        Normalize Scale (Base 100)
+                        <span data-i18n="normalizeLabel">Normalize Scale (Base 100)</span>
                     </label>
                 </div>
 
@@ -778,7 +788,7 @@ def read_root():
                     <label class="checkbox-container">
                         <input type="checkbox" id="smaCheck" checked>
                         <span class="checkbox-checkmark"></span>
-                        Show 50-Day SMA
+                        <span data-i18n="smaLabel">Show 50-Day SMA</span>
                     </label>
                 </div>
 
@@ -786,16 +796,16 @@ def read_root():
                     <label class="checkbox-container">
                         <input type="checkbox" id="projectionCheck" checked>
                         <span class="checkbox-checkmark"></span>
-                        Show 30-Day Projection
+                        <span data-i18n="projectionLabel">Show 30-Day Projection</span>
                     </label>
                 </div>
 
                 <div class="control-group">
-                    <label>Regression Fit Window</label>
+                    <label data-i18n="fitWindowLabel">Regression Fit Window</label>
                     <select id="fitWindowSelect">
-                        <option value="Full Year">Full Year</option>
-                        <option value="Last 90 Days">Last 90 Days</option>
-                        <option value="Last 30 Days">Last 30 Days</option>
+                        <option value="Full Year" data-i18n="optFullYear">Full Year</option>
+                        <option value="Last 90 Days" data-i18n="opt90d">Last 90 Days</option>
+                        <option value="Last 30 Days" data-i18n="opt30d">Last 30 Days</option>
                     </select>
                 </div>
             </div>
@@ -818,8 +828,8 @@ def read_root():
                 
                 <div class="chart-header">
                     <div class="chart-title">
-                        <h2>Closing Prices & Projected Path</h2>
-                        <p class="chart-insight" id="chartSubtitle">1-Year Historical Daily Series • Click legend to hide/show specific assets</p>
+                        <h2 data-i18n="chartTitle">Closing Prices & Projected Path</h2>
+                        <p class="chart-insight" id="chartSubtitle" data-i18n="chartSubtitle">1-Year Historical Daily Series • Click legend to hide/show specific assets</p>
                     </div>
                 </div>
                 
@@ -836,17 +846,17 @@ def read_root():
 
                 <div class="options-header-row">
                     <div class="chart-title">
-                        <h2>⛓️ Options Chain Intelligence</h2>
-                        <p class="chart-insight">Derivatives grids showing Calls and Puts side-by-side with strikes/prices normalized.</p>
+                        <h2 data-i18n="optionsTitle">⛓️ Options Chain Intelligence</h2>
+                        <p class="chart-insight" data-i18n="optionsSubtitle">Derivatives grids showing Calls and Puts side-by-side with strikes/prices normalized.</p>
                     </div>
                     
                     <div class="options-config">
                         <div style="display: flex; flex-direction: column; gap: 4px;">
-                            <label style="font-size: 0.75rem; color: var(--text-secondary);">Asset</label>
+                            <label data-i18n="optionsAssetLabel" style="font-size: 0.75rem; color: var(--text-secondary);">Asset</label>
                             <select id="optionsTickerSelect" style="width: 140px; padding: 6px 12px;"></select>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 4px;">
-                            <label style="font-size: 0.75rem; color: var(--text-secondary);">Expiration Date</label>
+                            <label data-i18n="optionsExpLabel" style="font-size: 0.75rem; color: var(--text-secondary);">Expiration Date</label>
                             <select id="optionsDateSelect" style="width: 160px; padding: 6px 12px;"></select>
                         </div>
                     </div>
@@ -856,14 +866,14 @@ def read_root():
                     <div class="options-tables-container">
                         <!-- Calls -->
                         <div class="options-table-card">
-                            <h3 style="color: var(--accent-green);">🟢 Call Options</h3>
+                            <h3 style="color: var(--accent-green);" data-i18n="callsTitle">🟢 Call Options</h3>
                             <div class="table-wrapper">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Strike Price</th>
-                                            <th>Last Price</th>
-                                            <th>Implied Volatility (IV)</th>
+                                            <th data-i18n="thStrike">Strike Price</th>
+                                            <th data-i18n="thLastPrice">Last Price</th>
+                                            <th data-i18n="thIV">Implied Volatility (IV)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="callsTableBody"></tbody>
@@ -873,14 +883,14 @@ def read_root():
                         
                         <!-- Puts -->
                         <div class="options-table-card">
-                            <h3 style="color: var(--accent-red);">🔴 Put Options</h3>
+                            <h3 style="color: var(--accent-red);" data-i18n="putsTitle">🔴 Put Options</h3>
                             <div class="table-wrapper">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Strike Price</th>
-                                            <th>Last Price</th>
-                                            <th>Implied Volatility (IV)</th>
+                                            <th data-i18n="thStrike">Strike Price</th>
+                                            <th data-i18n="thLastPrice">Last Price</th>
+                                            <th data-i18n="thIV">Implied Volatility (IV)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="putsTableBody"></tbody>
@@ -897,6 +907,182 @@ def read_root():
 
     <!-- Frontend JS Engine -->
     <script>
+        // Translation Dictionary
+        const translations = {
+            en: {
+                headerTitle: "The Enterprise Equity Terminal",
+                headerSubtitle: "Advanced BAIT Financial Analytics Dashboard • Served via FastAPI Backend",
+                statusLabel: "FASTAPI SECURE LOCALHOST",
+                assetSelectorTitle: "📊 Asset Selector",
+                manageAssetsLabel: "Manage Active Assets",
+                addTickerPlaceholder: "e.g. AMD, SOL-USD",
+                terminalConfigTitle: "⚙️ Terminal Config",
+                languageLabel: "Language",
+                currencyLabel: "Base Currency Normalization",
+                timeframeLabel: "Historical Timeframe",
+                normalizeLabel: "Normalize Scale (Base 100)",
+                smaLabel: "Show 50-Day SMA",
+                projectionLabel: "Show 30-Day Projection",
+                fitWindowLabel: "Regression Fit Window",
+                optFullYear: "Full Year",
+                opt90d: "Last 90 Days",
+                opt30d: "Last 30 Days",
+                opt1y: "1 Year",
+                opt2y: "2 Years",
+                opt5y: "5 Years",
+                optMax: "Max",
+                chartTitle: "Closing Prices & Projected Path",
+                chartSubtitle: "1-Year Historical Daily Series • Click legend to hide/show specific assets",
+                chartPrice: "Price",
+                chartSMA: "SMA 50",
+                chartProjected: "Projected",
+                chartSubtitleNormalized: "Normalized relative curves starting at 100",
+                chartSubtitleRaw: "Prices normalized to Base Currency",
+                optionsTitle: "⛓️ Options Chain Intelligence",
+                optionsSubtitle: "Derivatives grids showing Calls and Puts side-by-side with strikes/prices normalized.",
+                optionsAssetLabel: "Asset",
+                optionsExpLabel: "Expiration Date",
+                callsTitle: "🟢 Call Options",
+                putsTitle: "🔴 Put Options",
+                thStrike: "Strike Price",
+                thLastPrice: "Last Price",
+                thIV: "Implied Volatility (IV)",
+                infoSelectAsset: "Please select at least one active asset.",
+                infoOptionsNotAvailable: "Options data not available for active selection.",
+                infoNoOptionsData: "No options data returned.",
+                footerText: "© 2026 The Enterprise Equity Terminal Engine • Built by Yusuf Olia"
+            },
+            es: {
+                headerTitle: "Terminal de Acciones Empresarial",
+                headerSubtitle: "Panel Avanzado de Análisis Financiero BAIT • Servido mediante FastAPI",
+                statusLabel: "LOCALHOST SEGURO FASTAPI",
+                assetSelectorTitle: "📊 Selector de Activos",
+                manageAssetsLabel: "Gestionar Activos Activos",
+                addTickerPlaceholder: "ej. AMD, SOL-USD",
+                terminalConfigTitle: "⚙️ Configuración del Terminal",
+                languageLabel: "Idioma",
+                currencyLabel: "Normalización de Moneda Base",
+                timeframeLabel: "Plazo Histórico",
+                normalizeLabel: "Normalizar Escala (Base 100)",
+                smaLabel: "Mostrar SMA de 50 Días",
+                projectionLabel: "Mostrar Proyección de 30 Días",
+                fitWindowLabel: "Ventana de Ajuste de Regresión",
+                optFullYear: "Año Completo",
+                opt90d: "Últimos 90 Días",
+                opt30d: "Últimos 30 Días",
+                opt1y: "1 Año",
+                opt2y: "2 Años",
+                opt5y: "5 Años",
+                optMax: "Máximo",
+                chartTitle: "Precios de Cierre y Ruta Proyectada",
+                chartSubtitle: "Serie diaria histórica de 1 año • Haga clic en la leyenda para ocultar/mostrar activos",
+                chartPrice: "Precio",
+                chartSMA: "SMA 50",
+                chartProjected: "Proyectado",
+                chartSubtitleNormalized: "Curvas relativas normalizadas comenzando en 100",
+                chartSubtitleRaw: "Precios normalizados a la moneda base",
+                optionsTitle: "⛓️ Inteligencia de Cadena de Opciones",
+                optionsSubtitle: "Grillas de derivados que muestran Calls y Puts lado a lado con strikes/precios normalizados.",
+                optionsAssetLabel: "Activo",
+                optionsExpLabel: "Fecha de Vencimiento",
+                callsTitle: "🟢 Opciones de Compra (Calls)",
+                putsTitle: "🔴 Opciones de Venta (Puts)",
+                thStrike: "Precio de Ejercicio",
+                thLastPrice: "Último Precio",
+                thIV: "Volatilidad Implícita (IV)",
+                infoSelectAsset: "Por favor, seleccione al menos un activo activo.",
+                infoOptionsNotAvailable: "Datos de opciones no disponibles para la selección activa.",
+                infoNoOptionsData: "No se devolvieron datos de opciones.",
+                footerText: "© 2026 El Motor de Terminal de Acciones Empresarial • Creado por Yusuf Olia"
+            },
+            fr: {
+                headerTitle: "Terminal d'Actions de l'Entreprise",
+                headerSubtitle: "Tableau de Bord d'Analyse Financière Avancé BAIT • Servi via FastAPI",
+                statusLabel: "LOCALHOST SÉCURISÉ FASTAPI",
+                assetSelectorTitle: "📊 Sélecteur d'Actifs",
+                manageAssetsLabel: "Gérer les Actifs Actifs",
+                addTickerPlaceholder: "ex. AMD, SOL-USD",
+                terminalConfigTitle: "⚙️ Config du Terminal",
+                languageLabel: "Langue",
+                currencyLabel: "Normalisation de la Devise de Base",
+                timeframeLabel: "Période Historique",
+                normalizeLabel: "Normaliser l'Échelle (Base 100)",
+                smaLabel: "Afficher la SMA 50 Jours",
+                projectionLabel: "Afficher la Projection 30 Jours",
+                fitWindowLabel: "Fenêtre d'Ajustement de Régression",
+                optFullYear: "Année Complète",
+                opt90d: "90 Derniers Jours",
+                opt30d: "30 Derniers Jours",
+                opt1y: "1 An",
+                opt2y: "2 Ans",
+                opt5y: "5 Ans",
+                optMax: "Maximum",
+                chartTitle: "Prix de Clôture & Trajectoire Projetée",
+                chartSubtitle: "Série quotidienne historique sur 1 an • Cliquez sur la légende pour masquer/afficher des actifs",
+                chartPrice: "Prix",
+                chartSMA: "SMA 50",
+                chartProjected: "Projeté",
+                chartSubtitleNormalized: "Courbes relatives normalisées commençant à 100",
+                chartSubtitleRaw: "Prix normalisés dans la devise de base",
+                optionsTitle: "⛓️ Intelligence de la Chaîne d'Options",
+                optionsSubtitle: "Grilles de dérivés affichant les Calls et les Puts côte à côte avec strikes/prix normalisés.",
+                optionsAssetLabel: "Actif",
+                optionsExpLabel: "Date d'Expiration",
+                callsTitle: "🟢 Options d'Achat (Calls)",
+                putsTitle: "🔴 Options de Vente (Puts)",
+                thStrike: "Prix d'Exercice",
+                thLastPrice: "Dernier Prix",
+                thIV: "Volatilité Implicite (IV)",
+                infoSelectAsset: "Veuillez sélectionner au moins un actif actif.",
+                infoOptionsNotAvailable: "Données d'options non disponibles pour la sélection active.",
+                infoNoOptionsData: "Aucune donnée d'options retournée.",
+                footerText: "© 2026 Le Moteur du Terminal d'Actions de l'Entreprise • Créé par Yusuf Olia"
+            },
+            ko: {
+                headerTitle: "기업 주식 터미널",
+                headerSubtitle: "고급 BAIT 재무 분석 대시보드 • FastAPI 백엔드 제공",
+                statusLabel: "FASTAPI 보안 로컬호스트",
+                assetSelectorTitle: "📊 자산 선택기",
+                manageAssetsLabel: "활성 자산 관리",
+                addTickerPlaceholder: "예: AMD, SOL-USD",
+                terminalConfigTitle: "⚙️ 터미널 설정",
+                languageLabel: "언어",
+                currencyLabel: "기준 통화 표준화",
+                timeframeLabel: "역사적 기간",
+                normalizeLabel: "스케일 표준화 (기준 100)",
+                smaLabel: "50일 SMA 표시",
+                projectionLabel: "30일 예측 경로 표시",
+                fitWindowLabel: "회귀 적합 윈도우",
+                optFullYear: "전체 연도",
+                opt90d: "지난 90일",
+                opt30d: "지난 30일",
+                opt1y: "1년",
+                opt2y: "2년",
+                opt5y: "5년",
+                optMax: "최대",
+                chartTitle: "종가 및 예측 경로",
+                chartSubtitle: "1년 역사적 일별 시리즈 • 범례를 클릭하여 특정 자산을 숨기거나 표시할 수 있습니다.",
+                chartPrice: "가격",
+                chartSMA: "SMA 50",
+                chartProjected: "예측",
+                chartSubtitleNormalized: "100에서 시작하는 표준화된 상대 곡선",
+                chartSubtitleRaw: "기준 통화로 표준화된 가격",
+                optionsTitle: "⛓️ 옵션 체인 인텔리전스",
+                optionsSubtitle: "행사가 및 옵션 가격이 표준화된 콜 및 풋 옵션 그리드를 나란히 표시합니다.",
+                optionsAssetLabel: "자산",
+                optionsExpLabel: "만기일",
+                callsTitle: "🟢 콜 옵션",
+                putsTitle: "🔴 풋 옵션",
+                thStrike: "행사가",
+                thLastPrice: "최근가",
+                thIV: "내재변동성 (IV)",
+                infoSelectAsset: "최소 하나 이상의 활성 자산을 선택해 주세요.",
+                infoOptionsNotAvailable: "활성 선택에 대한 옵션 데이터를 사용할 수 없습니다.",
+                infoNoOptionsData: "옵션 데이터가 반환되지 않았습니다.",
+                footerText: "© 2026 기업 주식 터미널 엔진 • 제작: Yusuf Olia"
+            }
+        };
+
         // Terminal Application State
         const state = {
             tickers: ["NVDA", "BTC-USD", "META", "ETH-USD", "AAPL", "TSLA", "KRX100.KS"],
@@ -907,6 +1093,7 @@ def read_root():
             showProjection: true,
             fitWindow: "Full Year",
             timeframe: "1y",
+            language: "en",
             optionsTicker: "NVDA",
             optionsDate: "",
             
@@ -921,6 +1108,7 @@ def read_root():
         const addTickerInput = document.getElementById("addTickerInput");
         const btnAddTicker = document.getElementById("btnAddTicker");
         const currencySelect = document.getElementById("currencySelect");
+        const languageSelect = document.getElementById("languageSelect");
         const timeframeSelect = document.getElementById("timeframeSelect");
         const normalizeCheck = document.getElementById("normalizeCheck");
         const smaCheck = document.getElementById("smaCheck");
@@ -936,6 +1124,36 @@ def read_root():
         
         let chartInstance = null;
 
+        // Translation Swapping Engine
+        function updateLanguageText() {
+            const lang = state.language;
+            const dict = translations[lang];
+            
+            document.querySelectorAll("[data-i18n]").forEach(elem => {
+                const key = elem.getAttribute("data-i18n");
+                if (dict[key]) {
+                    if (elem.tagName === "INPUT" && elem.type === "text") {
+                        elem.placeholder = dict[key];
+                    } else if (elem.tagName === "OPTION") {
+                        elem.textContent = dict[key];
+                    } else {
+                        elem.textContent = dict[key];
+                    }
+                }
+            });
+            
+            if (state.marketData) {
+                const subtitleText = state.normalizeScale 
+                    ? dict.chartSubtitleNormalized
+                    : `${dict.chartSubtitleRaw} (${state.currency})`;
+                document.getElementById("chartSubtitle").textContent = subtitleText;
+            }
+            
+            if (chartInstance) {
+                renderChart();
+            }
+        }
+
         // Initialize UI Elements
         function initUI() {
             renderTickerCheckboxes();
@@ -944,6 +1162,11 @@ def read_root():
             currencySelect.addEventListener("change", (e) => {
                 state.currency = e.target.value;
                 triggerTerminalUpdate();
+            });
+
+            languageSelect.addEventListener("change", (e) => {
+                state.language = e.target.value;
+                updateLanguageText();
             });
             
             normalizeCheck.addEventListener("change", (e) => {
@@ -1065,7 +1288,7 @@ def read_root():
         // Trigger full data reload
         async function triggerTerminalUpdate() {
             if (state.activeTickers.length === 0) {
-                metricsGrid.innerHTML = '<div class="metric-card" style="grid-column: 1/-1;"><div class="info-msg">Please select at least one active asset.</div></div>';
+                metricsGrid.innerHTML = `<div class="metric-card" style="grid-column: 1/-1;"><div class="info-msg">${translations[state.language].infoSelectAsset}</div></div>`;
                 if (chartInstance) chartInstance.destroy();
                 clearOptionsGrids();
                 return;
@@ -1173,6 +1396,8 @@ def read_root():
             const datasets = [];
             let globalLabels = [];
             
+            const dict = translations[state.language];
+            
             // Get unique color for each active ticker
             const tickers = Object.keys(state.marketData);
             
@@ -1196,7 +1421,7 @@ def read_root():
                 gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
                 datasets.push({
-                    label: `${ticker} Price`,
+                    label: `${ticker} ${dict.chartPrice}`,
                     data: pricesData,
                     borderColor: tColor,
                     backgroundColor: gradient,
@@ -1214,7 +1439,7 @@ def read_root():
                         : item.sma50;
                         
                     datasets.push({
-                        label: `${ticker} SMA 50`,
+                        label: `${ticker} ${dict.chartSMA}`,
                         data: smaData,
                         borderColor: tColor,
                         borderWidth: 1.5,
@@ -1251,7 +1476,7 @@ def read_root():
                     }
 
                     datasets.push({
-                        label: `${ticker} Projected`,
+                        label: `${ticker} ${dict.chartProjected}`,
                         data: alignedProjData,
                         borderColor: tColor,
                         borderWidth: 1.5,
@@ -1264,8 +1489,8 @@ def read_root():
             });
 
             const subtitleText = state.normalizeScale 
-                ? "Normalized relative curves starting at 100"
-                : `Prices normalized to Base Currency (${state.currency})`;
+                ? dict.chartSubtitleNormalized
+                : `${dict.chartSubtitleRaw} (${state.currency})`;
             document.getElementById("chartSubtitle").textContent = subtitleText;
 
             chartInstance = new Chart(canvas, {
@@ -1396,7 +1621,7 @@ def read_root():
             }
 
             if (optData.calls.length === 0 && optData.puts.length === 0) {
-                const emptyRow = `<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No options data returned.</td></tr>`;
+                const emptyRow = `<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">${translations[state.language].infoNoOptionsData}</td></tr>`;
                 callsTableBody.innerHTML = emptyRow;
                 putsTableBody.innerHTML = emptyRow;
                 return;
@@ -1428,8 +1653,8 @@ def read_root():
         // Clear option grids if none available
         function clearOptionsGrids() {
             optionsDateSelect.innerHTML = '<option value="">N/A</option>';
-            callsTableBody.innerHTML = '<tr><td colspan="3" class="info-msg">Options data not available for active selection.</td></tr>';
-            putsTableBody.innerHTML = '<tr><td colspan="3" class="info-msg">Options data not available for active selection.</td></tr>';
+            callsTableBody.innerHTML = `<tr><td colspan="3" class="info-msg">${translations[state.language].infoOptionsNotAvailable}</td></tr>`;
+            putsTableBody.innerHTML = `<tr><td colspan="3" class="info-msg">${translations[state.language].infoOptionsNotAvailable}</td></tr>`;
         }
 
         // Format raw floats into base currency representations
@@ -1457,10 +1682,11 @@ def read_root():
         window.addEventListener("DOMContentLoaded", () => {
             initUI();
             updateOptionsTickerDropdown();
+            updateLanguageText();
             triggerTerminalUpdate();
         });
     </script>
-    <footer class="terminal-footer">
+    <footer class="terminal-footer" data-i18n="footerText">
         © 2026 The Enterprise Equity Terminal Engine • Built by Yusuf Olia
     </footer>
 </body>
