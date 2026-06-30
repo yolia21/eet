@@ -61,8 +61,8 @@ def fetch_options_data(ticker_symbol: str, target_date: Optional[str], forex_rat
             "error": f"Failed to retrieve options: {str(e)}"
         }
 
-def fetch_market_data(tickers_list: List[str], currency: str, fit_window: str):
-    """Fetch 1 year of historical closing prices, apply forex normalizations, and compute technical paths."""
+def fetch_market_data(tickers_list: List[str], currency: str, fit_window: str, period: str = "1y"):
+    """Fetch historical closing prices, apply forex normalizations, and compute technical paths."""
     forex_rate = 1.0
     
     # Fetch Forex Rate
@@ -95,7 +95,7 @@ def fetch_market_data(tickers_list: List[str], currency: str, fit_window: str):
     for t in tickers_list:
         try:
             ticker_obj = yf.Ticker(t)
-            hist = ticker_obj.history(period="1y")
+            hist = ticker_obj.history(period=period)
             if not hist.empty:
                 hist.index = hist.index.tz_localize(None)
                 data_dict[t] = hist['Close']
@@ -175,6 +175,7 @@ def get_market_data(
     tickers: str = Query("NVDA,BTC-USD", description="Comma-separated ticker symbols"),
     currency: str = Query("USD", description="Base display currency (USD, EUR, GBP, JPY)"),
     fit_window: str = Query("Full Year", description="OLS regression lookback fit window"),
+    period: str = Query("1y", description="Timeframe historical lookback"),
     options_ticker: Optional[str] = Query(None, description="Active ticker for options analysis"),
     options_date: Optional[str] = Query(None, description="Selected option contract expiration date")
 ):
@@ -182,7 +183,7 @@ def get_market_data(
     if not tickers_list:
         raise HTTPException(status_code=400, detail="At least one ticker symbol is required.")
         
-    market_result = fetch_market_data(tickers_list, currency, fit_window)
+    market_result = fetch_market_data(tickers_list, currency, fit_window, period)
     
     options_result = None
     if options_ticker:
@@ -755,6 +756,16 @@ def read_root():
                     </select>
                 </div>
 
+                <div class="control-group">
+                    <label>Historical Timeframe</label>
+                    <select id="timeframeSelect">
+                        <option value="1y">1 Year</option>
+                        <option value="2y">2 Years</option>
+                        <option value="5y">5 Years</option>
+                        <option value="max">Max</option>
+                    </select>
+                </div>
+
                 <div class="control-group" style="margin-top: 10px;">
                     <label class="checkbox-container">
                         <input type="checkbox" id="normalizeCheck">
@@ -895,6 +906,7 @@ def read_root():
             showSMA: true,
             showProjection: true,
             fitWindow: "Full Year",
+            timeframe: "1y",
             optionsTicker: "NVDA",
             optionsDate: "",
             
@@ -909,6 +921,7 @@ def read_root():
         const addTickerInput = document.getElementById("addTickerInput");
         const btnAddTicker = document.getElementById("btnAddTicker");
         const currencySelect = document.getElementById("currencySelect");
+        const timeframeSelect = document.getElementById("timeframeSelect");
         const normalizeCheck = document.getElementById("normalizeCheck");
         const smaCheck = document.getElementById("smaCheck");
         const projectionCheck = document.getElementById("projectionCheck");
@@ -950,6 +963,11 @@ def read_root():
 
             fitWindowSelect.addEventListener("change", (e) => {
                 state.fitWindow = e.target.value;
+                triggerTerminalUpdate();
+            });
+
+            timeframeSelect.addEventListener("change", (e) => {
+                state.timeframe = e.target.value;
                 triggerTerminalUpdate();
             });
 
@@ -1057,7 +1075,7 @@ def read_root():
             
             try {
                 const tickersQuery = state.activeTickers.join(",");
-                let url = `/api/market-data?tickers=${tickersQuery}&currency=${state.currency}&fit_window=${state.fitWindow}`;
+                let url = `/api/market-data?tickers=${tickersQuery}&currency=${state.currency}&fit_window=${state.fitWindow}&period=${state.timeframe}`;
                 
                 // Add option chain request details
                 if (state.optionsTicker) {
@@ -1101,7 +1119,7 @@ def read_root():
 
             optionsLoader.classList.add("active");
             try {
-                const url = `/api/market-data?tickers=${state.optionsTicker}&currency=${state.currency}&fit_window=${state.fitWindow}&options_ticker=${state.optionsTicker}&options_date=${state.optionsDate}`;
+                const url = `/api/market-data?tickers=${state.optionsTicker}&currency=${state.currency}&fit_window=${state.fitWindow}&period=${state.timeframe}&options_ticker=${state.optionsTicker}&options_date=${state.optionsDate}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
