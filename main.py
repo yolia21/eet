@@ -240,6 +240,23 @@ def read_root():
             background-attachment: fixed;
             min-height: 100vh;
             padding: 24px;
+            padding-bottom: 60px;
+        }
+
+        .terminal-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 12px 24px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: rgba(7, 10, 19, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border-faint);
+            z-index: 1000;
         }
 
         /* Layout Grid */
@@ -1425,6 +1442,9 @@ def read_root():
             triggerTerminalUpdate();
         });
     </script>
+    <footer class="terminal-footer">
+        © 2026 The Enterprise Equity Terminal Engine • Built by Yusuf Olia
+    </footer>
 </body>
 </html>
 """
